@@ -5,7 +5,7 @@ import { useState, useContext } from "react";
 import { AppContext, getGifs } from "../utils/data";
 
 const SearchBar = () => {
-  const { setGifs } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
   const [search, setSearch] = useState("");
 
   const handleChange = (e) => {
@@ -15,7 +15,7 @@ const SearchBar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const gifs = await getGifs(search);
-    setGifs(gifs);
+    dispatch({ type: "SET_GIFS", payload: gifs.data });
   };
 
   return (

@@ -8,9 +8,31 @@ const getGifs = (search) => {
   return fetch(url).then((res) => res.json());
 };
 
-const AppContext = createContext({
+const appReducer = (state, action) => {
+  console.log("yo", action);
+  switch (action.type) {
+    case "SET_GIFS":
+      console.log("uh");
+      return { ...state, gifs: action.payload };
+    case "ADD_TO_FAVORITES":
+      return { ...state, favorites: [...state.favorites, action.payload] };
+    case "REMOVE_FROM_FAVORITES":
+      const newFavs = [...state.favorites];
+      newFavs.splice(action.payload, 1);
+      return { ...state, favorites: newFavs };
+    default:
+      return state;
+  }
+};
+
+const defaultState = {
   gifs: [],
-  updateGifs: () => {}
+  favorites: []
+};
+
+const AppContext = createContext({
+  state: defaultState,
+  dispatch: () => {}
 });
 
-export { getGifs, AppContext };
+export { getGifs, AppContext, appReducer, defaultState };
