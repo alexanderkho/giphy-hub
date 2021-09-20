@@ -9,10 +9,8 @@ const getGifs = (search) => {
 };
 
 const appReducer = (state, action) => {
-  console.log("yo", action);
   switch (action.type) {
     case "SET_GIFS":
-      console.log("uh");
       return { ...state, gifs: action.payload };
     case "ADD_TO_FAVORITES":
       return { ...state, favorites: [...state.favorites, action.payload] };
