@@ -15,8 +15,10 @@ const appReducer = (state, action) => {
     case "ADD_TO_FAVORITES":
       return { ...state, favorites: [...state.favorites, action.payload] };
     case "REMOVE_FROM_FAVORITES":
+      const idx = state.favorites.findIndex((i) => i.id === action.payload);
+      if (idx === -1) return state;
       const newFavs = [...state.favorites];
-      newFavs.splice(action.payload, 1);
+      newFavs.splice(idx, 1);
       return { ...state, favorites: newFavs };
     default:
       return state;

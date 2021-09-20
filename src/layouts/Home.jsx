@@ -2,6 +2,7 @@ import * as React from "react";
 import { Container, Typography, Box, Tabs, Tab } from "@mui/material";
 
 import { Search } from "./Search";
+import { Favorites } from "./Favorites";
 
 const Home = () => {
   const [tab, setTab] = React.useState(0);
@@ -26,7 +27,9 @@ const Home = () => {
           <Search />
         </div>
         <div hidden={tab !== 1}>
-          <Typography variant="p">tee hee</Typography>
+          <Typography variant="p">
+            <Favorites />
+          </Typography>
         </div>
       </Container>
     </div>

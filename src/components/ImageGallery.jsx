@@ -1,15 +1,10 @@
 import * as React from "react";
 import { ImageList } from "@mui/material";
 
-import { AppContext } from "../utils/data";
 import { PreviewTile } from "./PreviewTile";
 import { ImageModal } from "./ImageModal";
 
-const SearchResults = () => {
-  const {
-    state: { gifs }
-  } = React.useContext(AppContext);
-
+const ImageGallery = ({ images }) => {
   const [showModal, setShowModal] = React.useState(false);
   const [activeImage, setActiveImage] = React.useState(null);
 
@@ -23,10 +18,10 @@ const SearchResults = () => {
     setActiveImage(null);
   };
 
-  return gifs.length ? (
+  return (
     <React.Fragment>
       <ImageList cols={5}>
-        {gifs.map((image) => (
+        {images.map((image) => (
           <PreviewTile image={image} key={image.id} handleClick={openModal} />
         ))}
       </ImageList>
@@ -36,7 +31,7 @@ const SearchResults = () => {
         image={activeImage}
       />
     </React.Fragment>
-  ) : null;
+  );
 };
 
-export { SearchResults };
+export { ImageGallery };

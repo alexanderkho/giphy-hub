@@ -1,13 +1,18 @@
 import * as React from "react";
 
 import { SearchBar } from "../components/SearchBar";
-import { SearchResults } from "../components/SearchResults";
+import { ImageGallery } from "../components/ImageGallery";
+import { AppContext } from "../utils/data";
 
 const Search = () => {
+  const {
+    state: { gifs }
+  } = React.useContext(AppContext);
+
   return (
     <React.Fragment>
       <SearchBar />
-      <SearchResults />
+      {gifs.length ? <ImageGallery images={gifs} /> : null}
     </React.Fragment>
   );
 };
