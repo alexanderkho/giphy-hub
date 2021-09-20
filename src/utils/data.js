@@ -25,14 +25,21 @@ const appReducer = (state, action) => {
   }
 };
 
-const defaultState = {
-  gifs: [],
-  favorites: []
+const defaultState = () => {
+  let favorites;
+  const savedFavorites = localStorage.getItem("giphy-hub-favorites");
+  if (savedFavorites !== null) {
+    favorites = JSON.parse(savedFavorites);
+  }
+  return {
+    gifs: [],
+    favorites
+  };
 };
 
 const AppContext = createContext({
-  state: defaultState,
-  dispatch: () => {}
+  gifs: [],
+  favorites: []
 });
 
 export { getGifs, AppContext, appReducer, defaultState };

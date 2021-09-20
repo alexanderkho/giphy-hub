@@ -10,6 +10,10 @@ const Favorites = () => {
     state: { favorites }
   } = React.useContext(AppContext);
 
+  React.useEffect(() => {
+    localStorage.setItem("giphy-hub-favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
   return (
     <Box>
       <Typography variant="h3">Favorites</Typography>
