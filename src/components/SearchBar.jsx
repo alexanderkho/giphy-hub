@@ -13,9 +13,20 @@ const SearchBar = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const gifs = await getGifs(search);
-    dispatch({ type: "SET_GIFS", payload: gifs.data });
+    try {
+      e.preventDefault();
+      const gifs = await getGifs(search);
+      if (!gifs.data.length) {
+        dispatch({
+          type: "SET_ERROR",
+          message: "No Results Found, try another search"
+        });
+      } else {
+        dispatch({ type: "SET_GIFS", payload: gifs.data });
+      }
+    } catch (e) {
+      dispatch({ type: "SET_ERROR", message: e.message });
+    }
   };
 
   return (

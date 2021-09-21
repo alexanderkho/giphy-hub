@@ -11,7 +11,7 @@ const getGifs = (search) => {
 const appReducer = (state, action) => {
   switch (action.type) {
     case "SET_GIFS":
-      return { ...state, gifs: action.payload };
+      return { ...state, gifs: action.payload, error: null };
     case "ADD_TO_FAVORITES":
       return { ...state, favorites: [...state.favorites, action.payload] };
     case "REMOVE_FROM_FAVORITES":
@@ -20,26 +20,27 @@ const appReducer = (state, action) => {
       const newFavs = [...state.favorites];
       newFavs.splice(idx, 1);
       return { ...state, favorites: newFavs };
+    case "SET_ERROR":
+      return { ...state, error: action.message };
     default:
       return state;
   }
 };
 
 const defaultState = () => {
-  let favorites;
   const savedFavorites = localStorage.getItem("giphy-hub-favorites");
-  if (savedFavorites !== null) {
-    favorites = JSON.parse(savedFavorites);
-  }
+  const favorites = savedFavorites !== null ? JSON.parse(savedFavorites) : [];
   return {
     gifs: [],
-    favorites
+    favorites,
+    error: null
   };
 };
 
 const AppContext = createContext({
   gifs: [],
-  favorites: []
+  favorites: [],
+  error: null
 });
 
 export { getGifs, AppContext, appReducer, defaultState };

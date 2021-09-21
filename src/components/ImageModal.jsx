@@ -29,14 +29,11 @@ const ImageModal = ({ open, handleClose, image }) => {
   const removeFromFavorites = () =>
     dispatch({ type: "REMOVE_FROM_FAVORITES", payload: image.id });
 
-  const isFavorite = favorites.includes(image);
+  const isFavorite =
+    image && favorites.findIndex((i) => i.id === image.id) !== -1;
 
   return (
-    <Modal
-      open={open}
-      onBackdropClick={handleClose}
-      aria-describedby="image modal"
-    >
+    <Modal open={open} onBackdropClick={handleClose}>
       <React.Fragment>
         {open && (
           <Box sx={style}>

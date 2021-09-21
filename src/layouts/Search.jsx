@@ -3,17 +3,23 @@ import * as React from "react";
 import { SearchBar } from "../components/SearchBar";
 import { ImageGallery } from "../components/ImageGallery";
 import { AppContext } from "../utils/data";
+import { Typography } from "@mui/material";
 
-//TODO: no results message
 const Search = () => {
   const {
-    state: { gifs }
+    state: { gifs, error }
   } = React.useContext(AppContext);
 
   return (
     <React.Fragment>
       <SearchBar />
-      {gifs.length ? <ImageGallery images={gifs} /> : null}
+      {error ? (
+        <Typography variant="p">{error}</Typography>
+      ) : gifs.length ? (
+        <ImageGallery images={gifs} />
+      ) : (
+        <Typography variant="p">Enter a search term to get started!</Typography>
+      )}
     </React.Fragment>
   );
 };
