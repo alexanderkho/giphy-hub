@@ -8,7 +8,7 @@ const Home = () => {
   const [tab, setTab] = React.useState(0);
 
   return (
-    <div className="App" style={{ background: "#b6d8fc", minHeight: "100vh" }}>
+    <div className="App">
       <Container maxWidth="xl">
         <Typography variant="h1" sx={{ color: "#fff" }} pt={6}>
           GiphyHub

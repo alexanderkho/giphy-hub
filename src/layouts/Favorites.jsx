@@ -16,7 +16,9 @@ const Favorites = () => {
 
   return (
     <Box>
-      <Typography variant="h3">Favorites</Typography>
+      <Typography variant="h3" sx={{ color: "#fff" }}>
+        Favorites
+      </Typography>
       {favorites.length ? (
         <ImageGallery images={favorites} />
       ) : (

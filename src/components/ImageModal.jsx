@@ -1,5 +1,8 @@
 import * as React from "react";
-import { Modal, Box, Button } from "@mui/material";
+import { Modal, Box, Button, Grid, IconButton } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { AppContext } from "../utils/data";
 
@@ -8,12 +11,12 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  bgcolor: "#fff",
+  bgcolor: "#b6d8fc",
   boxShadow: 24,
-  p: 4
+  padding: "0 2em 2em 2em",
+  borderRadius: "8px"
 };
 
-//TODO: add icons to btns, improve styling, x btn
 const ImageModal = ({ open, handleClose, image }) => {
   const {
     dispatch,
@@ -26,30 +29,50 @@ const ImageModal = ({ open, handleClose, image }) => {
   const removeFromFavorites = () =>
     dispatch({ type: "REMOVE_FROM_FAVORITES", payload: image.id });
 
-  const isFavorite = !favorites.includes(image);
+  const isFavorite = favorites.includes(image);
 
   return (
     <Modal
       open={open}
-      onClose={handleClose}
       onBackdropClick={handleClose}
       aria-describedby="image modal"
     >
-      {open ? (
-        <Box sx={style}>
-          <img src={image.images.original.url} alt={image.title} />
-          <br />
-          {isFavorite ? (
-            <Button onClick={addToFavorites} variant="contained">
-              Add to Favorites
-            </Button>
-          ) : (
-            <Button onClick={removeFromFavorites}>Remove From Favorites</Button>
-          )}
-        </Box>
-      ) : (
-        <div></div>
-      )}
+      <React.Fragment>
+        {open && (
+          <Box sx={style}>
+            <Grid container justifyContent="flex-end">
+              <Grid item xs={1}>
+                <IconButton onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+            <img
+              src={image.images.original.url}
+              alt={image.title}
+              style={{ marginBottom: "0.5em" }}
+            />
+            <br />
+            {isFavorite ? (
+              <Button
+                onClick={removeFromFavorites}
+                variant="outlined"
+                startIcon={<DeleteIcon />}
+              >
+                Remove From Favorites
+              </Button>
+            ) : (
+              <Button
+                onClick={addToFavorites}
+                variant="contained"
+                startIcon={<FavoriteIcon />}
+              >
+                Add to Favorites
+              </Button>
+            )}
+          </Box>
+        )}
+      </React.Fragment>
     </Modal>
   );
 };
